@@ -1,0 +1,648 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+<title>Dilli Darbar — आपका स्वागत है</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=Noto+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+:root {
+  --saffron:    #FF6B1A;
+  --saffron-dk: #C94E0A;
+  --saffron-lt: #FFD199;
+  --maroon:     #7B1F1F;
+  --gold:       #D4A017;
+  --gold-lt:    #F0CC6A;
+  --cream:      #FFF8EF;
+  --dark:       #1A0E07;
+  --dark-mid:   #2B1507;
+  --dark-card:  #221007;
+  --muted:      #8C6A50;
+  --border:     rgba(212,160,23,0.22);
+}
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box;}
+html,body{height:100%;overflow:hidden;}
+body{
+  font-family:'Noto Sans',sans-serif;
+  background:var(--dark);color:var(--cream);
+  display:flex;height:100dvh;
+}
+body::before{
+  content:'';position:fixed;inset:0;pointer-events:none;z-index:0;
+  background:
+    radial-gradient(ellipse 70% 50% at 15% 10%,rgba(255,107,26,.07) 0%,transparent 55%),
+    radial-gradient(ellipse 50% 70% at 85% 85%,rgba(212,160,23,.05) 0%,transparent 55%);
+}
+
+/* ════ SIDEBAR ════ */
+.sidebar{
+  width:260px;background:var(--dark-mid);
+  border-right:1px solid var(--border);
+  display:flex;flex-direction:column;
+  flex-shrink:0;z-index:20;
+  transition:transform .3s ease;
+  overflow-y:auto;
+}
+.sidebar::-webkit-scrollbar{width:3px;}
+.sidebar::-webkit-scrollbar-thumb{background:var(--border);}
+
+.brand{padding:22px 18px;border-bottom:1px solid var(--border);text-align:center;}
+.brand-logo{
+  width:58px;height:58px;
+  background:linear-gradient(135deg,var(--saffron),var(--maroon));
+  border-radius:50%;display:flex;align-items:center;justify-content:center;
+  font-size:27px;margin:0 auto 10px;
+  box-shadow:0 4px 18px rgba(255,107,26,.35);
+  animation:glow 3s ease-in-out infinite;
+}
+@keyframes glow{0%,100%{box-shadow:0 4px 18px rgba(255,107,26,.35);}50%{box-shadow:0 4px 28px rgba(255,107,26,.55);}}
+.brand-name{font-family:'Playfair Display',serif;font-size:20px;font-weight:700;color:var(--gold-lt);}
+.brand-hindi{font-size:13px;color:var(--saffron-lt);margin-top:2px;}
+.brand-tag{font-size:10px;letter-spacing:2px;text-transform:uppercase;color:var(--muted);margin-top:4px;}
+
+.nav-sec{padding:14px 10px 6px;}
+.nav-lbl{font-size:9px;letter-spacing:2px;text-transform:uppercase;color:var(--muted);margin-bottom:8px;padding:0 6px;}
+.nbtn{
+  display:flex;align-items:center;gap:10px;width:100%;
+  padding:9px 12px;border:none;background:transparent;
+  color:#B8956A;font-family:'Noto Sans',sans-serif;font-size:13px;
+  cursor:pointer;border-radius:8px;transition:all .2s;
+  margin-bottom:2px;text-align:left;
+}
+.nbtn:hover,.nbtn.active{background:rgba(255,107,26,.12);color:var(--saffron-lt);}
+.nbtn .ni{font-size:15px;}
+.sb-footer{margin-top:auto;padding:14px 18px;border-top:1px solid var(--border);}
+.online{display:flex;align-items:center;gap:8px;font-size:12px;color:var(--muted);}
+.dot-live{width:8px;height:8px;background:#4CAF50;border-radius:50%;animation:pg 2s infinite;}
+@keyframes pg{0%,100%{box-shadow:0 0 0 0 rgba(76,175,80,.5);}50%{box-shadow:0 0 0 5px rgba(76,175,80,0);}}
+
+/* ════ MAIN ════ */
+.main{flex:1;min-width:0;display:flex;flex-direction:column;position:relative;z-index:5;}
+
+.topbar{
+  display:flex;align-items:center;gap:10px;
+  padding:12px 18px;border-bottom:1px solid var(--border);
+  background:rgba(26,14,7,.85);backdrop-filter:blur(10px);flex-shrink:0;
+}
+.hamburger{
+  display:none;background:none;border:none;
+  color:var(--saffron);font-size:22px;cursor:pointer;padding:4px;flex-shrink:0;
+}
+.tb-info{flex:1;min-width:0;}
+.tb-info h2{font-family:'Playfair Display',serif;font-size:17px;font-weight:600;color:var(--cream);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+.tb-info p{font-size:12px;color:var(--muted);margin-top:1px;}
+.tb-acts{display:flex;gap:6px;flex-shrink:0;}
+.icon-btn{
+  width:34px;height:34px;background:rgba(212,160,23,.1);
+  border:1px solid var(--border);border-radius:8px;cursor:pointer;
+  display:flex;align-items:center;justify-content:center;
+  font-size:15px;transition:all .2s;color:var(--gold);
+}
+.icon-btn:hover{background:rgba(212,160,23,.22);}
+
+/* Messages */
+.msgs{flex:1;overflow-y:auto;padding:18px 14px;scroll-behavior:smooth;}
+.msgs::-webkit-scrollbar{width:4px;}
+.msgs::-webkit-scrollbar-thumb{background:var(--border);border-radius:2px;}
+
+.mrow{display:flex;margin-bottom:16px;animation:su .3s ease;}
+@keyframes su{from{opacity:0;transform:translateY(10px);}to{opacity:1;transform:translateY(0);}}
+.mrow.user{flex-direction:row-reverse;}
+
+.av{width:32px;height:32px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:13px;flex-shrink:0;margin:0 8px;align-self:flex-end;}
+.av.bot{background:linear-gradient(135deg,var(--saffron),var(--maroon));box-shadow:0 2px 10px rgba(255,107,26,.3);}
+.av.usr{background:rgba(212,160,23,.15);border:1px solid var(--border);color:var(--gold);font-weight:600;font-size:11px;}
+
+.mbody{max-width:76%;}
+.mrow.user .mbody{align-items:flex-end;}
+
+.bubble{padding:11px 15px;border-radius:16px;font-size:13.5px;line-height:1.72;}
+.bubble.bot{background:var(--dark-card);border:1px solid var(--border);border-radius:4px 16px 16px 16px;}
+.bubble.user{background:linear-gradient(135deg,var(--saffron-dk),var(--maroon));border-radius:16px 4px 16px 16px;}
+.bubble strong{color:var(--gold-lt);}
+.bubble em{color:var(--saffron-lt);font-style:italic;}
+
+.mtime{font-size:10px;color:var(--muted);margin-top:3px;padding:0 4px;}
+.mrow.user .mtime{text-align:right;}
+
+/* Chips */
+.chips{display:flex;flex-wrap:wrap;gap:6px;margin-top:10px;}
+.chip{
+  padding:6px 12px;background:transparent;border:1px solid var(--border);
+  border-radius:20px;color:var(--saffron-lt);font-size:12px;cursor:pointer;
+  font-family:'Noto Sans',sans-serif;transition:all .2s;white-space:nowrap;
+}
+.chip:hover{background:rgba(255,107,26,.15);border-color:var(--saffron);transform:translateY(-1px);}
+
+/* Category grid */
+.cat-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(105px,1fr));gap:8px;margin-top:12px;}
+.ccard{
+  background:var(--dark-card);border:1px solid var(--border);
+  border-radius:10px;padding:11px 8px;text-align:center;
+  cursor:pointer;transition:all .25s;
+}
+.ccard:hover{border-color:var(--saffron);background:rgba(255,107,26,.06);transform:translateY(-2px);}
+.cemoji{font-size:22px;margin-bottom:6px;display:block;}
+.cname{font-size:11px;color:var(--cream);font-weight:500;line-height:1.3;}
+
+/* Menu grid */
+.menu-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(168px,1fr));gap:10px;margin-top:12px;}
+.mcard{
+  background:var(--dark-card);border:1px solid var(--border);
+  border-radius:12px;padding:12px;
+  transition:all .25s;display:flex;flex-direction:column;
+}
+.mcard:hover{border-color:var(--saffron);transform:translateY(-2px);box-shadow:0 6px 20px rgba(255,107,26,.15);}
+.mc-em{font-size:25px;margin-bottom:6px;}
+.mc-bdg{display:flex;flex-wrap:wrap;gap:3px;margin-bottom:5px;}
+.bdg{font-size:10px;padding:2px 6px;border-radius:4px;font-weight:500;}
+.bdg.veg{background:rgba(27,94,32,.3);color:#81C784;border:1px solid rgba(27,94,32,.4);}
+.bdg.nv{background:rgba(123,31,31,.3);color:#EF9A9A;border:1px solid rgba(123,31,31,.4);}
+.bdg.gf{background:rgba(212,160,23,.15);color:var(--gold-lt);border:1px solid var(--border);}
+.bdg.sp{background:rgba(255,107,26,.15);border:1px solid rgba(255,107,26,.3);}
+.mc-nm{font-size:13px;font-weight:500;color:var(--cream);margin-bottom:3px;}
+.mc-ds{font-size:11px;color:var(--muted);line-height:1.5;margin-bottom:8px;flex:1;}
+.mc-ft{display:flex;align-items:center;justify-content:space-between;gap:8px;}
+.mc-pr{font-size:15px;color:var(--gold);font-weight:600;}
+.add-btn{
+  padding:5px 10px;background:rgba(255,107,26,.15);
+  border:1px solid rgba(255,107,26,.3);border-radius:6px;
+  color:var(--saffron-lt);font-size:11px;cursor:pointer;
+  font-family:'Noto Sans',sans-serif;transition:all .2s;white-space:nowrap;
+}
+.add-btn:hover{background:rgba(255,107,26,.3);border-color:var(--saffron);}
+
+/* Typing */
+.typing-bub{
+  padding:13px 16px;background:var(--dark-card);border:1px solid var(--border);
+  border-radius:4px 16px 16px 16px;display:inline-flex;align-items:center;gap:5px;
+}
+.dot{width:7px;height:7px;background:var(--saffron);border-radius:50%;animation:bd 1.2s infinite;}
+.dot:nth-child(2){animation-delay:.2s;}
+.dot:nth-child(3){animation-delay:.4s;}
+@keyframes bd{0%,60%,100%{transform:translateY(0);opacity:.4;}30%{transform:translateY(-6px);opacity:1;}}
+
+/* ════ INPUT AREA ════ */
+.input-area{
+  padding:11px 14px 13px;border-top:1px solid var(--border);
+  background:rgba(26,14,7,.92);backdrop-filter:blur(10px);flex-shrink:0;
+}
+.input-row{
+  display:flex;gap:10px;align-items:flex-end;
+  background:var(--dark-card);border:1px solid var(--border);
+  border-radius:14px;padding:9px 13px;transition:border-color .2s;
+}
+.input-row:focus-within{border-color:var(--saffron);}
+.chat-in{
+  flex:1;background:none;border:none;outline:none;
+  color:var(--cream);font-family:'Noto Sans',sans-serif;
+  font-size:14px;resize:none;max-height:108px;min-height:20px;line-height:1.5;
+}
+.chat-in::placeholder{color:var(--muted);}
+.send-btn{
+  width:36px;height:36px;
+  background:linear-gradient(135deg,var(--saffron),var(--saffron-dk));
+  border:none;border-radius:9px;cursor:pointer;
+  display:flex;align-items:center;justify-content:center;
+  font-size:16px;transition:all .2s;flex-shrink:0;
+  box-shadow:0 2px 10px rgba(255,107,26,.35);
+}
+.send-btn:hover:not(:disabled){transform:scale(1.07);}
+.send-btn:disabled{opacity:.4;cursor:not-allowed;}
+
+.hint-row{display:flex;gap:6px;margin-top:8px;overflow-x:auto;padding-bottom:2px;}
+.hint-row::-webkit-scrollbar{display:none;}
+.hint{
+  padding:4px 10px;background:rgba(255,107,26,.06);
+  border:1px solid rgba(255,107,26,.14);border-radius:14px;
+  font-size:11px;color:var(--muted);cursor:pointer;
+  white-space:nowrap;transition:all .2s;flex-shrink:0;
+}
+.hint:hover{color:var(--saffron-lt);border-color:var(--saffron);background:rgba(255,107,26,.12);}
+
+/* ════ RIGHT PANEL ════ */
+.rpanel{
+  width:278px;flex-shrink:0;background:var(--dark-mid);
+  border-left:1px solid var(--border);display:flex;flex-direction:column;z-index:10;
+}
+.ph{padding:16px 18px;border-bottom:1px solid var(--border);font-family:'Playfair Display',serif;font-size:17px;color:var(--gold-lt);flex-shrink:0;}
+.ptabs{display:flex;border-bottom:1px solid var(--border);flex-shrink:0;}
+.ptab{
+  flex:1;padding:10px 8px;background:none;border:none;
+  color:var(--muted);font-size:12px;cursor:pointer;
+  font-family:'Noto Sans',sans-serif;border-bottom:2px solid transparent;transition:all .2s;
+}
+.ptab.active{color:var(--saffron-lt);border-bottom-color:var(--saffron);}
+.pbody{flex:1;overflow-y:auto;padding:14px;}
+.pbody::-webkit-scrollbar{width:3px;}
+.pbody::-webkit-scrollbar-thumb{background:var(--border);}
+
+.oi{display:flex;align-items:center;gap:9px;padding:9px;background:var(--dark-card);border:1px solid var(--border);border-radius:8px;margin-bottom:7px;}
+.oi-em{font-size:19px;}
+.oi-info{flex:1;min-width:0;}
+.oi-nm{font-size:12px;color:var(--cream);font-weight:500;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+.oi-qt{font-size:11px;color:var(--muted);}
+.oi-pr{font-size:13px;color:var(--gold);font-weight:600;}
+
+.order-summ{padding:12px;border-top:1px solid var(--border);margin-top:6px;}
+.rtot{display:flex;justify-content:space-between;font-size:13px;color:var(--cream);margin-bottom:5px;}
+.grand{font-size:17px;color:var(--gold);font-weight:700;}
+.conf-btn{
+  width:100%;padding:11px;
+  background:linear-gradient(135deg,var(--saffron),var(--saffron-dk));
+  border:none;border-radius:9px;color:#fff;font-size:13px;font-weight:600;
+  font-family:'Noto Sans',sans-serif;cursor:pointer;margin-top:12px;
+  transition:all .2s;letter-spacing:.3px;
+}
+.conf-btn:hover{opacity:.9;transform:translateY(-1px);}
+
+.stat-box{background:var(--dark-card);border:1px solid var(--border);border-radius:9px;padding:14px;text-align:center;margin-bottom:9px;}
+.sv{font-size:30px;color:var(--saffron);font-family:'Playfair Display',serif;}
+.sl{font-size:10px;color:var(--muted);margin-top:2px;letter-spacing:1px;text-transform:uppercase;}
+
+/* ════ WELCOME ════ */
+.welcome{
+  display:flex;flex-direction:column;align-items:center;
+  justify-content:center;text-align:center;padding:30px 18px;height:100%;
+}
+.w-icon{
+  width:78px;height:78px;
+  background:linear-gradient(135deg,var(--saffron),var(--maroon));
+  border-radius:50%;display:flex;align-items:center;justify-content:center;
+  font-size:34px;margin-bottom:18px;
+  box-shadow:0 8px 34px rgba(255,107,26,.35);
+  animation:float 3.5s ease-in-out infinite;
+}
+@keyframes float{0%,100%{transform:translateY(0);}50%{transform:translateY(-9px);}}
+.w-title{font-family:'Playfair Display',serif;font-size:clamp(22px,5vw,36px);font-weight:700;color:var(--gold-lt);letter-spacing:1px;margin-bottom:4px;}
+.w-hindi{font-size:clamp(13px,3vw,18px);color:var(--saffron-lt);margin-bottom:4px;}
+.w-sub{font-size:11px;color:var(--muted);letter-spacing:2px;text-transform:uppercase;margin-bottom:26px;}
+.w-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:8px;max-width:400px;width:100%;}
+.wbtn{
+  padding:10px 14px;background:rgba(255,107,26,.08);
+  border:1px solid rgba(255,107,26,.2);border-radius:10px;
+  color:var(--cream);font-size:13px;cursor:pointer;
+  font-family:'Noto Sans',sans-serif;transition:all .25s;text-align:left;
+}
+.wbtn:hover{background:rgba(255,107,26,.2);border-color:var(--saffron);transform:translateY(-2px);}
+
+/* Toast */
+.toast{
+  position:fixed;bottom:80px;right:18px;
+  background:var(--dark-card);border:1px solid var(--saffron);
+  border-radius:10px;padding:10px 15px;font-size:13px;color:var(--saffron-lt);
+  z-index:999;max-width:280px;
+  animation:ti .3s ease,to .3s ease 2.7s forwards;
+  box-shadow:0 6px 24px rgba(0,0,0,.4);
+}
+@keyframes ti{from{opacity:0;transform:translateY(8px);}to{opacity:1;transform:translateY(0);}}
+@keyframes to{from{opacity:1;}to{opacity:0;}}
+
+/* Overlay */
+.overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.55);z-index:18;}
+
+/* ════ RESPONSIVE ════ */
+@media(max-width:1060px){.rpanel{display:none;}}
+
+@media(max-width:700px){
+  .sidebar{position:fixed;top:0;left:0;bottom:0;transform:translateX(-100%);width:min(275px,82vw);z-index:25;}
+  .sidebar.open{transform:translateX(0);}
+  .overlay.show{display:block;}
+  .hamburger{display:flex;}
+  .menu-grid{grid-template-columns:repeat(auto-fill,minmax(148px,1fr));gap:8px;}
+  .cat-grid{grid-template-columns:repeat(auto-fill,minmax(88px,1fr));gap:6px;}
+  .bubble{font-size:13px;padding:10px 13px;}
+  .msgs{padding:12px 9px;}
+  .mbody{max-width:86%;}
+  .w-grid{grid-template-columns:1fr 1fr;gap:6px;}
+  .input-area{padding:9px 10px 11px;}
+  .topbar{padding:10px 12px;}
+  .toast{bottom:70px;right:10px;left:10px;max-width:100%;}
+}
+
+@media(max-width:400px){
+  .w-grid{grid-template-columns:1fr;}
+  .menu-grid{grid-template-columns:1fr 1fr;}
+  .tb-info h2{font-size:15px;}
+}
+
+::-webkit-scrollbar{width:4px;}
+::-webkit-scrollbar-track{background:transparent;}
+::-webkit-scrollbar-thumb{background:rgba(212,160,23,.2);border-radius:2px;}
+</style>
+</head>
+<body>
+
+<div class="overlay" id="ov" onclick="closeSB()"></div>
+
+<!-- ═══ SIDEBAR ═══ -->
+<aside class="sidebar" id="sb">
+  <div class="brand">
+    <div class="brand-logo">🍛</div>
+    <div class="brand-name">Dilli Darbar</div>
+    <div class="brand-hindi">दिल्ली दरबार</div>
+    <div class="brand-tag">Authentic Indian Cuisine • Since 1987</div>
+  </div>
+
+  <div class="nav-sec">
+    <div class="nav-lbl">Menu Categories</div>
+    <button class="nbtn" onclick="sq('Starters aur chaat dikhao');closeSB()"><span class="ni">🥙</span>Starters &amp; Chaat</button>
+    <button class="nbtn" onclick="sq('soup aur shorba dikhao');closeSB()"><span class="ni">🍲</span>Soups &amp; Shorba</button>
+    <button class="nbtn" onclick="sq('dal aur sabzi dikhao');closeSB()"><span class="ni">🍛</span>Dal &amp; Sabzi</button>
+    <button class="nbtn" onclick="sq('tandoor specials dikhao');closeSB()"><span class="ni">🔥</span>Tandoor Specials</button>
+    <button class="nbtn" onclick="sq('non veg curry dikhao');closeSB()"><span class="ni">🍗</span>Non-Veg Curries</button>
+    <button class="nbtn" onclick="sq('biryani dikhao');closeSB()"><span class="ni">🍚</span>Biryani &amp; Pulao</button>
+    <button class="nbtn" onclick="sq('dessert aur sweets dikhao');closeSB()"><span class="ni">🍮</span>Sweets &amp; Desserts</button>
+    <button class="nbtn" onclick="sq('lassi aur beverages dikhao');closeSB()"><span class="ni">🥛</span>Beverages &amp; Lassi</button>
+  </div>
+
+  <div class="nav-sec">
+    <div class="nav-lbl">Dietary</div>
+    <button class="nbtn" onclick="sq('pure veg options dikhao');closeSB()"><span class="ni">🟢</span>Pure Veg</button>
+    <button class="nbtn" onclick="sq('vegan dishes dikhao');closeSB()"><span class="ni">🌱</span>Vegan</button>
+    <button class="nbtn" onclick="sq('gluten free options dikhao');closeSB()"><span class="ni">🌾</span>Gluten Free</button>
+    <button class="nbtn" onclick="sq('mild non spicy dishes dikhao');closeSB()"><span class="ni">😌</span>Mild / Non-Spicy</button>
+    <button class="nbtn" onclick="sq('extra spicy teekha dishes');closeSB()"><span class="ni">🌶️</span>Extra Teekha</button>
+  </div>
+
+  <div class="nav-sec">
+    <div class="nav-lbl">Quick Actions</div>
+    <button class="nbtn" onclick="sq('table book karna hai');closeSB()"><span class="ni">📅</span>Book a Table</button>
+    <button class="nbtn" onclick="sq('chef ki special dishes');closeSB()"><span class="ni">⭐</span>Chef&apos;s Special</button>
+    <button class="nbtn" onclick="sq('mera order dikhao');closeSB()"><span class="ni">🛒</span>My Order</button>
+    <button class="nbtn" onclick="sq('timings kya hain');closeSB()"><span class="ni">🕐</span>Timings</button>
+    <button class="nbtn" onclick="sq('restaurant kahan hai');closeSB()"><span class="ni">📍</span>Location</button>
+  </div>
+
+  <div class="sb-footer">
+    <div class="online"><div class="dot-live"></div><span>AI Assistant Online</span></div>
+  </div>
+</aside>
+
+<!-- ═══ MAIN ═══ -->
+<main class="main">
+  <header class="topbar">
+    <button class="hamburger" onclick="openSB()" aria-label="Menu">☰</button>
+    <div class="tb-info">
+      <h2>🙏 Dilli Darbar</h2>
+      <p>Aapka personal dining assistant</p>
+    </div>
+    <div class="tb-acts">
+      <button class="icon-btn" onclick="clearChat()" title="Naya chat">🗑️</button>
+      <button class="icon-btn" onclick="sq('mera order dikhao')" title="My order">🛒</button>
+    </div>
+  </header>
+
+  <div class="msgs" id="msgs">
+    <div class="welcome" id="welcome">
+      <div class="w-icon">🍛</div>
+      <div class="w-title">Dilli Darbar</div>
+      <div class="w-hindi">दिल्ली दरबार में आपका स्वागत है!</div>
+      <div class="w-sub">Authentic Indian Cuisine Since 1987</div>
+      <div class="w-grid">
+        <button class="wbtn" onclick="sq('poora menu dikhao')">🍽️ Poora Menu Dekho</button>
+        <button class="wbtn" onclick="sq('chef ki special dishes')">⭐ Chef&apos;s Special</button>
+        <button class="wbtn" onclick="sq('table book karna hai')">📅 Table Book Karo</button>
+        <button class="wbtn" onclick="sq('pure veg options dikhao')">🟢 Pure Veg Options</button>
+        <button class="wbtn" onclick="sq('biryani dikhao')">🍚 Biryani Menu</button>
+        <button class="wbtn" onclick="sq('timings aur location batao')">📍 Timings &amp; Location</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="input-area">
+    <div class="input-row">
+      <textarea id="cin" class="chat-in" placeholder="Yahan type karein… (e.g. 'butter chicken dikhao')" rows="1" onkeydown="hk(event)" oninput="ah(this)"></textarea>
+      <button class="send-btn" id="sbtn" onclick="send()" aria-label="Send">➤</button>
+    </div>
+    <div class="hint-row">
+      <span class="hint" onclick="sq('butter chicken chahiye')">🍗 Butter Chicken</span>
+      <span class="hint" onclick="sq('paneer tikka dikhao')">🧀 Paneer Tikka</span>
+      <span class="hint" onclick="sq('biryani kya hai')">🍚 Biryani</span>
+      <span class="hint" onclick="sq('dessert dikhao')">🍮 Desserts</span>
+      <span class="hint" onclick="sq('budget mein kya milega')">💰 Budget Dishes</span>
+      <span class="hint" onclick="sq('masala chai aur lassi')">🥛 Drinks</span>
+    </div>
+  </div>
+</main>
+
+<!-- ═══ RIGHT PANEL ═══ -->
+<aside class="rpanel">
+  <div class="ph">Order &amp; Info</div>
+  <div class="ptabs">
+    <button class="ptab active" onclick="swTab('order',this)">🛒 Order</button>
+    <button class="ptab" onclick="swTab('stats',this)">📊 Stats</button>
+  </div>
+  <div class="pbody" id="po">
+    <div id="olist"><p style="text-align:center;color:var(--muted);font-size:12px;margin-top:24px;">Cart khali hai! 🛒<br>Menu se items add karein.</p></div>
+    <div id="osumm" style="display:none">
+      <div class="order-summ">
+        <div class="rtot"><span>Subtotal</span><span id="sub">₹0</span></div>
+        <div class="rtot"><span>GST (5%)</span><span id="gst">₹0</span></div>
+        <div class="rtot" style="border-top:1px solid var(--border);padding-top:8px;margin-top:4px;font-weight:600;">
+          <span>Total</span><span class="grand" id="gtot">₹0</span>
+        </div>
+        <button class="conf-btn" onclick="confirmOrder()">✅ Order Place Karo →</button>
+      </div>
+    </div>
+  </div>
+  <div class="pbody" id="ps" style="display:none">
+    <div class="stat-box"><div class="sv" id="ss">—</div><div class="sl">Chat Sessions</div></div>
+    <div class="stat-box"><div class="sv" id="sm">—</div><div class="sl">Messages</div></div>
+    <div class="stat-box"><div class="sv" id="sr">—</div><div class="sl">Table Bookings</div></div>
+    <div class="stat-box"><div class="sv" id="so">—</div><div class="sl">Orders Placed</div></div>
+  </div>
+</aside>
+
+<script>
+const API = window.location.origin+'/api';
+let SID = localStorage.getItem('dd_sid')||gid();
+let busy = false;
+localStorage.setItem('dd_sid',SID);
+
+function gid(){return 'dd_'+Math.random().toString(36).slice(2)+Date.now().toString(36);}
+function openSB(){document.getElementById('sb').classList.add('open');document.getElementById('ov').classList.add('show');}
+function closeSB(){document.getElementById('sb').classList.remove('open');document.getElementById('ov').classList.remove('show');}
+function ah(el){el.style.height='auto';el.style.height=Math.min(el.scrollHeight,108)+'px';}
+function hk(e){if(e.key==='Enter'&&!e.shiftKey){e.preventDefault();send();}}
+
+async function send(){
+  const inp=document.getElementById('cin');
+  const txt=inp.value.trim();
+  if(!txt||busy)return;
+  inp.value='';inp.style.height='auto';
+  hideW();addU(txt);showTyp();
+  try{
+    const res=await fetch(API+'/chat',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({sessionId:SID,message:txt})});
+    const d=await res.json();
+    hideTyp();if(d.response)addB(d.response);
+  }catch(e){hideTyp();addB({text:'⚠️ Server se connect nahi ho pa raha. Kripaya server chalu karein (port 3001).',type:'text',actions:[]});}
+}
+
+function sq(t){document.getElementById('cin').value=t;send();}
+function hideW(){const w=document.getElementById('welcome');if(w)w.style.display='none';}
+
+function addU(txt){
+  const c=document.getElementById('msgs');
+  const t=now();
+  const r=mk('div','mrow user');
+  r.innerHTML=`<div class="av usr">Aap</div><div class="mbody"><div class="bubble user">${es(txt)}</div><div class="mtime">${t}</div></div>`;
+  c.appendChild(r);scr();
+}
+
+function addB(resp){
+  const c=document.getElementById('msgs');
+  const t=now();
+  const r=mk('div','mrow');
+  let h=`<div class="av bot">🍛</div><div class="mbody"><div class="bubble bot">${ft(resp.text)}</div>`;
+
+  if(resp.type==='categories'&&resp.items?.length){
+    h+=`<div class="cat-grid">`;
+    resp.items.forEach(cat=>{h+=`<div class="ccard" onclick="sq('${je(cat.name)} dikhao')"><span class="cemoji">${cat.emoji}</span><div class="cname">${cat.name}</div></div>`;});
+    h+=`</div>`;
+  }
+
+  if(resp.type==='menu_items'&&resp.items?.length){
+    h+=`<div class="menu-grid">`;
+    resp.items.forEach(item=>{
+      const bd=(item.badges||[]).map(b=>{
+        if(b.includes('Veg')&&!b.includes('Non'))return`<span class="bdg veg">${b}</span>`;
+        if(b.includes('Non-Veg'))return`<span class="bdg nv">${b}</span>`;
+        if(b.includes('GF'))return`<span class="bdg gf">${b}</span>`;
+        return`<span class="bdg sp">${b}</span>`;
+      }).join('');
+      h+=`<div class="mcard">
+        <div class="mc-em">${item.emoji||'🍽️'}</div>
+        <div class="mc-bdg">${bd}</div>
+        <div class="mc-nm">${item.name}</div>
+        <div class="mc-ds">${item.description||''}</div>
+        <div class="mc-ft">
+          <div class="mc-pr">₹${item.price}</div>
+          <button class="add-btn" onclick="addCart(${item.id},'${je(item.name)}',${item.price},'${item.emoji||'🍽️'}')">+ Add</button>
+        </div>
+      </div>`;
+    });
+    h+=`</div>`;
+  }
+
+  if(resp.actions?.length){
+    h+=`<div class="chips">`;
+    resp.actions.forEach(a=>{h+=`<button class="chip" onclick="sq('${je(a)}')">${a}</button>`;});
+    h+=`</div>`;
+  }
+  h+=`<div class="mtime">${t}</div></div>`;
+  r.innerHTML=h;c.appendChild(r);scr();
+}
+
+let typEl=null;
+function showTyp(){
+  busy=true;document.getElementById('sbtn').disabled=true;
+  const c=document.getElementById('msgs');
+  typEl=mk('div','mrow');typEl.id='typ';
+  typEl.innerHTML=`<div class="av bot">🍛</div><div class="mbody"><div class="typing-bub"><div class="dot"></div><div class="dot"></div><div class="dot"></div></div></div>`;
+  c.appendChild(typEl);scr();
+}
+function hideTyp(){
+  busy=false;document.getElementById('sbtn').disabled=false;
+  const t=document.getElementById('typ');if(t)t.remove();
+}
+
+function scr(){const c=document.getElementById('msgs');c.scrollTop=c.scrollHeight;}
+function now(){return new Date().toLocaleTimeString([],{hour:'2-digit',minute:'2-digit'});}
+function ft(t){if(!t)return'';return t.replace(/\*\*(.*?)\*\*/g,'<strong>$1</strong>').replace(/\*(.*?)\*/g,'<em>$1</em>').replace(/\n/g,'<br>');}
+function es(t){return t.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');}
+function je(s){return(s||'').replace(/'/g,"\\'").replace(/"/g,'\\"');}
+function mk(tag,cls){const d=document.createElement(tag);if(cls)d.className=cls;return d;}
+
+/* Cart */
+async function addCart(id,name,price,emoji){
+  try{
+    const res=await fetch(API+'/order/add',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({sessionId:SID,itemId:id,quantity:1})});
+    const d=await res.json();
+    if(d.success){toast(`${emoji} ${name} cart mein add hua!`);refreshCart();}
+  }catch(e){toast('⚠️ Cart update nahi ho saka.');}
+}
+
+async function refreshCart(){
+  try{
+    const res=await fetch(API+'/order/'+SID);
+    const d=await res.json();
+    const list=document.getElementById('olist');
+    const summ=document.getElementById('osumm');
+    if(d.items?.length){
+      list.innerHTML=d.items.map(i=>`<div class="oi"><span class="oi-em">${i.image_emoji||'🍽️'}</span><div class="oi-info"><div class="oi-nm">${i.name}</div><div class="oi-qt">×${i.quantity}</div></div><div class="oi-pr">₹${(i.item_price*i.quantity).toFixed(0)}</div></div>`).join('');
+      const sub=parseFloat(d.total);
+      const gst=sub*.05;const tot=sub+gst;
+      document.getElementById('sub').textContent='₹'+sub.toFixed(0);
+      document.getElementById('gst').textContent='₹'+gst.toFixed(0);
+      document.getElementById('gtot').textContent='₹'+tot.toFixed(0);
+      summ.style.display='block';
+    }else{
+      list.innerHTML='<p style="text-align:center;color:var(--muted);font-size:12px;margin-top:24px;">Cart khali hai! 🛒<br>Menu se items add karein.</p>';
+      summ.style.display='none';
+    }
+  }catch(e){}
+}
+
+async function confirmOrder(){
+  try{
+    const res=await fetch(API+'/order/confirm',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({sessionId:SID})});
+    const d=await res.json();
+    if(d.success){
+      toast(`🎊 Order ${d.orderNumber} confirm! ₹${d.total}`);
+      hideW();
+      addB({text:`🎊 **Order Confirmed! Bahut Shukriya!**\n\nOrder Number: **${d.orderNumber}**\nTotal: **₹${d.total}** (incl. GST 5%)\n\n⏱️ Estimated time: 25–40 minutes\n\nAapka khana jald tayar hoga! 🍛 Bon Appétit!`,type:'text',actions:['Aur Order Karo','Table Book Karo']});
+      refreshCart();
+    }
+  }catch(e){toast('⚠️ Order confirm nahi ho saka.');}
+}
+
+function swTab(tab,btn){
+  document.querySelectorAll('.ptab').forEach(t=>t.classList.remove('active'));
+  btn.classList.add('active');
+  document.getElementById('po').style.display=tab==='order'?'block':'none';
+  document.getElementById('ps').style.display=tab==='stats'?'block':'none';
+  if(tab==='stats')loadStats();
+}
+
+async function loadStats(){
+  try{
+    const res=await fetch(API+'/admin/stats');
+    const d=await res.json();
+    document.getElementById('ss').textContent=d.sessions;
+    document.getElementById('sm').textContent=d.messages;
+    document.getElementById('sr').textContent=d.reservations;
+    document.getElementById('so').textContent=d.orders;
+  }catch(e){}
+}
+
+function clearChat(){
+  document.getElementById('msgs').innerHTML=`<div class="welcome" id="welcome">
+    <div class="w-icon">🍛</div>
+    <div class="w-title">Dilli Darbar</div>
+    <div class="w-hindi">दिल्ली दरबार में आपका स्वागत है!</div>
+    <div class="w-sub">Authentic Indian Cuisine Since 1987</div>
+    <div class="w-grid">
+      <button class="wbtn" onclick="sq('poora menu dikhao')">🍽️ Poora Menu Dekho</button>
+      <button class="wbtn" onclick="sq('chef ki special dishes')">⭐ Chef's Special</button>
+      <button class="wbtn" onclick="sq('table book karna hai')">📅 Table Book Karo</button>
+      <button class="wbtn" onclick="sq('pure veg options dikhao')">🟢 Pure Veg Options</button>
+      <button class="wbtn" onclick="sq('biryani dikhao')">🍚 Biryani Menu</button>
+      <button class="wbtn" onclick="sq('timings aur location batao')">📍 Timings &amp; Location</button>
+    </div>
+  </div>`;
+  SID=gid();localStorage.setItem('dd_sid',SID);
+}
+
+function toast(msg){
+  const old=document.querySelector('.toast');if(old)old.remove();
+  const t=document.createElement('div');t.className='toast';t.textContent=msg;
+  document.body.appendChild(t);
+  setTimeout(()=>{if(t.parentNode)t.remove();},3000);
+}
+
+refreshCart();
+</script>
+</body>
+</html>

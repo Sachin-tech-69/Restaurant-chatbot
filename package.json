@@ -1,0 +1,13 @@
+{
+  "name": "maison-elite-restaurant-chatbot",
+  "version": "1.0.0",
+  "description": "Full-stack AI restaurant chatbot for Maison Élite fine dining",
+  "main": "backend/server.js",
+  "scripts": {
+    "start": "node backend/server.js",
+    "dev": "node backend/server.js"
+  },
+  "keywords": ["restaurant", "chatbot", "AI", "nodejs", "sqlite"],
+  "author": "Maison Élite",
+  "license": "MIT"
+}
